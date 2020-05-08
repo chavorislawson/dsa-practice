@@ -1,9 +1,14 @@
 package dsa.datastructures.arrays;
 
+/**
+ * Implementation of automatically resizing array
+ */
 public class Array {
 	private int capacity;
 	private int arr[];
 	private int size;
+
+	//int *iptr;
 
 	public Array() {
 		this.capacity = 2;
@@ -17,6 +22,27 @@ public class Array {
 		this.size = 0;
 	}
 
+	/*
+	 * Basic Array Operations
+	 * 
+	 * Op.		where			Time complexity
+	 * 
+	 * get 		w/index
+	 * get 		w/o index
+	 * add 		at beginning
+	 * add 		at end
+	 * insert 	any index
+	 * remove	w/index
+	 * remove	at end
+	 * 
+	 * 
+	 */
+
+	public void add(){
+
+	}
+
+	
 	// Basic Array Operations
 	public void pop() {// if 1/4 of capacity resize to half
 		if (size > 0) {

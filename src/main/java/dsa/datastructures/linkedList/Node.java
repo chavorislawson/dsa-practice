@@ -1,13 +1,16 @@
 package dsa.datastructures.linkedList;
 
 public class Node {
-	int data;
-	Node next;
+	private int data;
+	private Node next;
 
-	public Node() {
-		this.data = 0;
-		this.next = null;
-	}
+	/*
+	 * Don't do this. It doesn't make sense to add a new node with no data in it 
+	 */
+	// public Node() {
+	// 	this.data = 0;
+	// 	this.next = null;
+	// }
 
 	public Node(int data) {
 		this.data = data;
@@ -19,11 +22,11 @@ public class Node {
 	}
 
 	public int getData() {
-		return data;
+		return this.data;
 	}
 
 	public Node getNext() {
-		return next;
+		return this.next;
 	}
 
 	public void setData(int data) {

@@ -1,56 +1,68 @@
 package dsa.app;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Set;
-import java.util.Stack;
-import java.util.Deque;
-import java.util.Queue;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.Hashtable;
-import java.util.WeakHashMap;
-import java.util.Iterator;
-import java.util.Enumeration;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.Dictionary;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.ListIterator;
-import java.util.Comparator;
-import java.util.Vector;
-import java.util.BitSet;
-import java.util.NavigableMap;
-import java.util.NavigableSet;
-import java.util.Map;
+// import java.util.Arrays;
+ import java.util.List; //Interface
+ import java.util.ArrayList;
+// import java.util.Vector;//probably not going to use
+
+  import java.util.Set; //interface
+//  import java.util.SortedSet; //interface
+//  import java.util.NavigableSet; //interface
+//  import java.util.Stack;//recommended to use Deque, but this is actually a class, so just used LinkedList
+//  import java.util.Deque; //interface
+//  import java.util.Queue; //interface
+ import java.util.LinkedList;
+
+// import java.util.Dictionary; //don't use. use map, basically use the hashstuff
+// import java.util.Map; //interface
+// import java.util.SortedMap; //interface
+// import java.util.NavigableMap; //interface
+// import java.util.Hashtable;
+// import java.util.HashMap;
+ import java.util.HashSet;
+// import java.util.LinkedHashMap;
+// import java.util.LinkedHashSet;
+// import java.util.TreeMap;
+// import java.util.TreeSet;
+// import java.util.WeakHashMap;
+
+import dsa.datastructures.linkedList.Node;
+import dsa.datastructures.linkedList.SinglyLinkedList;
+
+// import java.util.Iterator; //interface
+// import java.util.ListIterator; //interface
+// import java.util.Enumeration; //recommended to use iterator, interface
+// import java.util.Comparator; //interface
+// import java.util.BitSet;
 
 /**
  * Hello world!
  *
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+        // Arrays arrays;
+        List<String> list = new ArrayList<>();
+        List<String> list2 = new LinkedList<>();
+        // ArrayList<String> arrayList = new ArrayList<>();
+
+        // Set<String> set = new HashSet<>(); //why would you use one of these implementations over the other.
+        // HashSet<String> hashSet = new HashSet<>();
+        
+
+
+        SinglyLinkedList sLinkedList = new SinglyLinkedList();
+        sLinkedList.pushFront(new Node(1));
+        sLinkedList.pushFront(new Node(2));
+        sLinkedList.pushFront(new Node(3));
+        sLinkedList.pushFront(new Node(4));
+        sLinkedList.pushFront(new Node(5));
+        sLinkedList.pushFront(new Node(6));
+        sLinkedList.pushFront(new Node(7));
+        sLinkedList.printList();
+        sLinkedList.getCount();
+
+
     }
-
-    //LinkedList
-    Hashtable ht;
-    HashSet hs;
-    TreeMap tm;
-    TreeSet ts;
-    HashMap hm;
-    ArrayList al;
-    List l;
-    Queue q;
-    WeakHashMap wHashMap;
-
 }
