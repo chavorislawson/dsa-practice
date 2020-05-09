@@ -60,23 +60,13 @@ public class App {
         sLinkedList.pushFront(new Node(5));
         sLinkedList.pushFront(new Node(6));
         sLinkedList.pushFront(new Node(7));
-        sLinkedList.printList();
-        sLinkedList.getCount();
         sLinkedList.pushBack(new Node(8));
         sLinkedList.pushBack(new Node(9));
         sLinkedList.printList();
-        sLinkedList.getCount();
-        sLinkedList.popBack();
+        sLinkedList.getNodeCount();
         sLinkedList.printList();
-        sLinkedList.getCount();
-        System.out.println(sLinkedList.topFront());
-        sLinkedList.topBack();
-        System.out.println(sLinkedList.isEmpty());
-        SinglyLinkedList s2 = new SinglyLinkedList(false);
-        System.out.println(s2.isEmpty());
-        System.out.println(sLinkedList.valueAt(4));
-        sLinkedList.remove(4);
-        sLinkedList.printList();
+        
+        System.out.println(sLinkedList.findMiddle());
         
 
         

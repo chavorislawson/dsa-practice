@@ -37,7 +37,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * returns value at specified index
+	 * returns value at specified index +
 	 * 
 	 * @param index
 	 * @return
@@ -56,15 +56,37 @@ public class SinglyLinkedList {
 		return temp.getData();
 	}
 
+	/**
+	 * returns index value from end of SinglyLinkedList
+	 * 
+	 * @param index
+	 * @return
+	 */
 	public int valueFromEnd(int index){
+		return isEmpty()||nodeCount<index+1 ? -1 : getNodeCount()-index+1;
+	}
+
+	public int findMiddle(){
 		if(isEmpty()){
+			return -1;
+		} else if(getNodeCount()<=2){
 			return 0;
 		}
-		return getCount()-valueAt(index);
+		Node slow = head;
+		Node fast = slow.getNext().getNext();
+		int count=0;
+
+		while(fast.getNext()!=null){
+			++count;
+			slow = slow.getNext();
+			fast = fast.getNext().getNext();
+		}
+		return count;
 	}
 
 	/**
-	 * Evaluates if SinglyLinkedList is empty.
+	 * Evaluates if SinglyLinkedList is empty. +
+	 * 
 	 * @return
 	 */
 	public boolean isEmpty(){
@@ -72,7 +94,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * Adds a new node to the front of the SinglyLinkedList
+	 * Adds a new node to the front of the SinglyLinkedList +
 	 * 
 	 * @param node
 	 */
@@ -83,7 +105,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * Returns the data of the first node in the SinglyLinkedList
+	 * Returns the data of the first node in the SinglyLinkedList +
 	 * 
 	 * @return head.data
 	 */
@@ -92,7 +114,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * Removes the first node in the SinglyLinkedList
+	 * Removes the first node in the SinglyLinkedList +
 	 * 
 	 * @return head's value
 	 */
@@ -110,9 +132,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * Adds a node to the end of the SinglyLinkedList
-	 * 
-	 * I think this is only possible with tail feature.
+	 * Adds a node to the end of the SinglyLinkedList +
 	 * 
 	 * @param back
 	 */
@@ -126,7 +146,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * returns value at end of SinglyLinkedList
+	 * returns value at end of SinglyLinkedList +
 	 */
 	public int topBack() {
 		Node temp = head;
@@ -138,9 +158,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * Removes a node from the end of the SinglyLinkedList
-	 * 
-	 * I think this is only possible with tail feature
+	 * removes a node from the end of the SinglyLinkedList +
 	 * 
 	 * @return
 	 */
@@ -159,7 +177,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * removed node at specified index
+	 * removes node at specified index +
 	 * 
 	 * @param index
 	 * @return
@@ -177,14 +195,68 @@ public class SinglyLinkedList {
 			temp=temp.getNext();
 		}
 		Node removedNode = temp.getNext();
-		temp.setNext(temp.getNext().getNext());
+		temp.setNext(removedNode.getNext());
+		removedNode.setNext(null);
 		removedNode = null;
 		return true;
 
 	}
+	
+	/**
+	 * removes node with first occurrence of specified value +
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public boolean removeValue(int value){
+		if(isEmpty()){
+			return false;
+		}
+		Node temp = head;
+		if(temp.getData()==value){
+			popFront();
+			return true;
+		}
+		while(temp.getNext()!=null){
+			if(temp.getNext().getData()==value){
+				Node removedNode = temp.getNext();
+				temp.setNext(removedNode.getNext());
+				removedNode.setNext(null);
+				removedNode=null;
+				return true;
+			}
+			temp=temp.getNext();
+		}
+		return false;
+	}
 
 	/**
-	 * prints out values within SinglyLinkedList
+	 * reverses the SinglyLinkedList +
+	 * 
+	 * @return
+	 */
+	public Node reverse(){
+		if(isEmpty()){
+			return head;
+		}
+		Node curr = head;
+		Node newHead = curr.getNext();
+
+		while(curr.getNext().getNext()!=null){
+			curr.setNext(newHead.getNext());
+			newHead.setNext(head);
+			head = newHead;
+			newHead = curr.getNext();
+		}
+		newHead = curr.getNext();
+		curr.setNext(null);
+		newHead.setNext(head);
+		head = newHead;
+		return head;
+	}
+
+	/**
+	 * prints out values within SinglyLinkedList +
 	 */
 	public void printList() {
 		Node temp = head;
@@ -197,7 +269,12 @@ public class SinglyLinkedList {
 		System.out.println("null");
 	}
 
-	public int getCount() {
+	/**
+	 * returns number of nodes in SinglyLinkedList +
+	 * 
+	 * @return
+	 */
+	public int getNodeCount() {
 		return nodeCount;
 	}
 }
