@@ -5,7 +5,7 @@ package dsa.app;
  import java.util.ArrayList;
 // import java.util.Vector;//probably not going to use
 
-  import java.util.Set; //interface
+//  import java.util.Set; //interface
 //  import java.util.SortedSet; //interface
 //  import java.util.NavigableSet; //interface
 //  import java.util.Stack;//recommended to use Deque, but this is actually a class, so just used LinkedList
@@ -52,7 +52,7 @@ public class App {
         
 
 
-        SinglyLinkedList sLinkedList = new SinglyLinkedList();
+        SinglyLinkedList sLinkedList = new SinglyLinkedList(true);
         sLinkedList.pushFront(new Node(1));
         sLinkedList.pushFront(new Node(2));
         sLinkedList.pushFront(new Node(3));
@@ -62,6 +62,25 @@ public class App {
         sLinkedList.pushFront(new Node(7));
         sLinkedList.printList();
         sLinkedList.getCount();
+        sLinkedList.pushBack(new Node(8));
+        sLinkedList.pushBack(new Node(9));
+        sLinkedList.printList();
+        sLinkedList.getCount();
+        sLinkedList.popBack();
+        sLinkedList.printList();
+        sLinkedList.getCount();
+        System.out.println(sLinkedList.topFront());
+        sLinkedList.topBack();
+        System.out.println(sLinkedList.isEmpty());
+        SinglyLinkedList s2 = new SinglyLinkedList(false);
+        System.out.println(s2.isEmpty());
+        System.out.println(sLinkedList.valueAt(4));
+        sLinkedList.remove(4);
+        sLinkedList.printList();
+        
+
+        
+        
 
 
     }
