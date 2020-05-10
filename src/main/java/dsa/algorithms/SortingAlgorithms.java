@@ -2,7 +2,53 @@ package dsa.algorithms;
 
 public class SortingAlgorithms {
 
-	public static int[] bubbleSort(int[] c) {
+	/**
+	 * <p>
+	 * selection sort on an array of integers
+	 * 
+	 * <p>
+	 * They say it improves the performance over bubble sort by gathering the
+	 * smaller numbers to the front of the array, but it just seems like a reverse
+	 * bubble sort to me
+	 * 
+	 * <p>
+	 * O(n^2) Time
+	 * 
+	 * <p>
+	 * O(1) Space
+	 * 
+	 * @param a
+	 * @return
+	 */
+	public int[] selectionSort(int[] a) {
+		if (a.length <= 1) {
+			return a;
+		}
+		int temp = 0;
+
+		for (int i = 0; i < a.length; i++) {
+			for (int j = i; j < a.length; j++) {
+				if (a[j + 1] < a[i]) {
+					temp = a[i];
+					a[i] = a[j + 1];
+					a[j + 1] = temp;
+				}
+			}
+		}
+		return a;
+	}
+
+	/**
+	 * <p>
+	 * bubble sort on an array of integers
+	 * 
+	 * <p>
+	 * O(n^2) time O(1) space
+	 * 
+	 * @param c
+	 * @return
+	 */
+	public int[] bubbleSort(int[] c) {
 		if (c == null || c.length <= 1) {
 			return c;
 		}
@@ -22,7 +68,7 @@ public class SortingAlgorithms {
 
 	}
 
-	public static int[] insertionSort(int a[]) {
+	public int[] insertionSort(int a[]) {
 		for (int i = 1; i < a.length; i++) {
 			int c = a[i];
 			int p = i - 1;

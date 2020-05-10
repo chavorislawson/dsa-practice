@@ -1,39 +1,38 @@
 package dsa.datastructures.linkedList;
 
 /**
- * The class SinglyLinkedList
+ * The class <code>SinglyLinkedList</code>
  * 
- * implements:
+ * <p>implements:
  * 
- * nodeCount() - returns size of SinglyLinkedList 
- * printList() 
- * pushFront()
- * topFront() 
- * popFront() 
- * pushBack() 
- * topBack() 
- * popBack() 
- * isEmpty() 
- * valueAt(index) - returns the value at nth index starting from 0 insert(index, value)
- * remove(index) 
- * valueFromEnd(index) - returns value at index evaluated 
- * reverse() - reverse the SinglyLinkedList 
- * removeValue(value) - removes first index with this value
+ * <p>nodeCount() - returns size of SinglyLinkedList 
+ * <p>printList() 
+ * <p>pushFront()
+ * <p>topFront() 
+ * <p>popFront() 
+ * <p>pushBack() 
+ * <p>topBack() 
+ * <p>popBack() 
+ * <p>isEmpty() 
+ * <p>valueAt(index) - returns the value at nth index starting from 0 insert(index, value)
+ * <p>remove(index) 
+ * <p>valueFromEnd(index) - returns value at index evaluated 
+ * <p>reverse() - reverse the SinglyLinkedList 
+ * <p>removeValue(value) - removes first index with this value
+ * 
+ * @author Chavoris Lawson
  */
 public class SinglyLinkedList {
 
 	private Node head;
 	private int nodeCount;
-	private Node tail;
-	boolean hasTail;
-	boolean speedy;
 
 	public SinglyLinkedList(Node head) {
 		this.head = head;
 	}
 
-	public SinglyLinkedList(boolean wantTail) {
-		this.hasTail = wantTail;
+	public SinglyLinkedList(){
+
 	}
 
 	/**
@@ -66,6 +65,11 @@ public class SinglyLinkedList {
 		return isEmpty()||nodeCount<index+1 ? -1 : getNodeCount()-index+1;
 	}
 
+	/**
+	 * finds the middle index of the SinglyLinkedList
+	 * 
+	 * @return
+	 */
 	public int findMiddle(){
 		if(isEmpty()){
 			return -1;
@@ -73,10 +77,10 @@ public class SinglyLinkedList {
 			return 0;
 		}
 		Node slow = head;
-		Node fast = slow.getNext().getNext();
+		Node fast = slow;
 		int count=0;
 
-		while(fast.getNext()!=null){
+		while(fast.getNext()!=null && fast.getNext().getNext()!=null){
 			++count;
 			slow = slow.getNext();
 			fast = fast.getNext().getNext();
@@ -85,7 +89,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * Evaluates if SinglyLinkedList is empty. +
+	 * evaluates if SinglyLinkedList is empty. +
 	 * 
 	 * @return
 	 */
@@ -94,7 +98,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * Adds a new node to the front of the SinglyLinkedList +
+	 * adds a new node to the front of the SinglyLinkedList +
 	 * 
 	 * @param node
 	 */
@@ -105,7 +109,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * Returns the data of the first node in the SinglyLinkedList +
+	 * returns the data of the first node in the SinglyLinkedList +
 	 * 
 	 * @return head.data
 	 */
@@ -114,7 +118,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * Removes the first node in the SinglyLinkedList +
+	 * removes the first node in the SinglyLinkedList +
 	 * 
 	 * @return head's value
 	 */
@@ -132,7 +136,7 @@ public class SinglyLinkedList {
 	}
 
 	/**
-	 * Adds a node to the end of the SinglyLinkedList +
+	 * adds a node to the end of the SinglyLinkedList +
 	 * 
 	 * @param back
 	 */
@@ -182,24 +186,23 @@ public class SinglyLinkedList {
 	 * @param index
 	 * @return
 	 */
-	public boolean remove(int index){
-		if(nodeCount<index+1){
-			return false;
+	public Node remove(int index){
+		if(index==1){
+			return head==null ? head : head.getNext(); 
 		}
+		Node curr = head;
+		Node prev = head;
 
-		int count = index-1;
-		Node temp = head;
-
-		while(count>0){
-			--count;
-			temp=temp.getNext();
+		while(curr.getNext()!=null){
+			--index;
+			if(index==0){
+				prev.setNext(curr.getNext());
+				curr = null;
+			}
+			prev=curr;
+			curr=curr.getNext();
 		}
-		Node removedNode = temp.getNext();
-		temp.setNext(removedNode.getNext());
-		removedNode.setNext(null);
-		removedNode = null;
-		return true;
-
+		return head;
 	}
 	
 	/**

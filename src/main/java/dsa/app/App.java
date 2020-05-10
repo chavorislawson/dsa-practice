@@ -18,7 +18,7 @@ package dsa.app;
 // import java.util.SortedMap; //interface
 // import java.util.NavigableMap; //interface
 // import java.util.Hashtable;
-// import java.util.HashMap;
+ import java.util.HashMap;
  import java.util.HashSet;
 // import java.util.LinkedHashMap;
 // import java.util.LinkedHashSet;
@@ -26,6 +26,8 @@ package dsa.app;
 // import java.util.TreeSet;
 // import java.util.WeakHashMap;
 
+import dsa.codepractice.firecode.Level2;
+import dsa.codepractice.firecode.Level2.TreeNode;
 import dsa.datastructures.linkedList.Node;
 import dsa.datastructures.linkedList.SinglyLinkedList;
 
@@ -49,10 +51,8 @@ public class App {
 
         // Set<String> set = new HashSet<>(); //why would you use one of these implementations over the other.
         // HashSet<String> hashSet = new HashSet<>();
-        
 
-
-        SinglyLinkedList sLinkedList = new SinglyLinkedList(true);
+        SinglyLinkedList sLinkedList = new SinglyLinkedList();
         sLinkedList.pushFront(new Node(1));
         sLinkedList.pushFront(new Node(2));
         sLinkedList.pushFront(new Node(3));
@@ -67,11 +67,11 @@ public class App {
         sLinkedList.printList();
         
         System.out.println(sLinkedList.findMiddle());
+        //Level2 l2 = new Level2();
+        //TreeNode t = l2.new TreeNode(1, l2.new TreeNode(2,l2.new TreeNode(4, null, null),l2.new TreeNode(5, null, null)),l2.new TreeNode(3,l2.new TreeNode(6, null, null),l2.new TreeNode(7, null, null)));
+        //System.out.println(l2.findMax(t));
         
-
-        
-        
-
-
     }
+
+
 }
