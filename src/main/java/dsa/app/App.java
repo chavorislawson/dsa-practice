@@ -30,6 +30,7 @@ import dsa.codepractice.firecode.Level2;
 import dsa.codepractice.firecode.Level2.TreeNode;
 import dsa.datastructures.linkedList.Node;
 import dsa.datastructures.linkedList.SinglyLinkedList;
+import dsa.interview.Oracle;
 
 // import java.util.Iterator; //interface
 // import java.util.ListIterator; //interface
@@ -52,26 +53,36 @@ public class App {
         // Set<String> set = new HashSet<>(); //why would you use one of these implementations over the other.
         // HashSet<String> hashSet = new HashSet<>();
 
-        SinglyLinkedList sLinkedList = new SinglyLinkedList();
-        sLinkedList.pushFront(new Node(1));
-        sLinkedList.pushFront(new Node(2));
-        sLinkedList.pushFront(new Node(3));
-        sLinkedList.pushFront(new Node(4));
-        sLinkedList.pushFront(new Node(5));
-        sLinkedList.pushFront(new Node(6));
-        sLinkedList.pushFront(new Node(7));
-        sLinkedList.pushBack(new Node(8));
-        sLinkedList.pushBack(new Node(9));
-        sLinkedList.printList();
-        sLinkedList.getNodeCount();
-        sLinkedList.printList();
+        // SinglyLinkedList sLinkedList = new SinglyLinkedList();
+        // sLinkedList.pushFront(new Node(1));
+        // sLinkedList.pushFront(new Node(2));
+        // sLinkedList.pushFront(new Node(3));
+        // sLinkedList.pushFront(new Node(4));
+        // sLinkedList.pushFront(new Node(5));
+        // sLinkedList.pushFront(new Node(6));
+        // sLinkedList.pushFront(new Node(7));
+        // sLinkedList.pushBack(new Node(8));
+        // sLinkedList.pushBack(new Node(9));
+        // sLinkedList.printList();
+        // sLinkedList.getNodeCount();
+        // sLinkedList.printList();
         
-        System.out.println(sLinkedList.findMiddle());
+        //System.out.println(sLinkedList.findMiddle());
         //Level2 l2 = new Level2();
         //TreeNode t = l2.new TreeNode(1, l2.new TreeNode(2,l2.new TreeNode(4, null, null),l2.new TreeNode(5, null, null)),l2.new TreeNode(3,l2.new TreeNode(6, null, null),l2.new TreeNode(7, null, null)));
         //System.out.println(l2.findMax(t));
-        
-    }
 
+    //     TreeNode root = new TreeNode(1);
+    // root.left = new TreeNode(8);
+    // root.left.left = new TreeNode(2);
+    // root.right = new TreeNode(4);
+    // root.right.right = new TreeNode(17);
+
+        Oracle o = new Oracle();
+        int a = o.firstOccurence(new int[] {1,2,3,4,5,6,2,3});
+        System.out.println(a);
+    }
+    //abcde,acdbe - true
+    //yellow,llowey - true
 
 }

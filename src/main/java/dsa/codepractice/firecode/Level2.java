@@ -161,6 +161,9 @@ public class Level2 {
     /**
      * removes node at specified index +
      * 
+     * <p>
+     * O(n) Time and O(1) Space
+     * 
      * @param index
      * @return
      */
@@ -224,6 +227,252 @@ public class Level2 {
 
     }
 
+    /**
+     * This is another way to insert a node at the end of a linked list. I'm not
+     * sure if this is any faster than the other way. The original way is in my
+     * SinglyLinkedList class
+     * 
+     * <p>
+     * O(n) Time and O(1) space
+     * 
+     * @param head
+     * @return
+     */
+    public Node insertNode(Node head, int data) {
+        if (head == null) {
+            return new Node(data);
+        }
+
+        Node fast = head;
+
+        while (fast.getNext() != null && fast.getNext().getNext() != null) {
+            fast = fast.getNext().getNext();
+        }
+        fast.getNext().setNext(new Node(data));
+        return head;
+    }
+
+    /**
+     * returns two indices whose values equal the target.
+     * 
+     * <p>
+     * O(n) Time and Space
+     * 
+     * @param n
+     * @param target
+     * @return
+     */
+    public int[] coupleSum(int[] n, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < n.length; i++) {
+            if (map.get(n[i]) == null) {// the other way is to use map.containsKey(n[i])
+                map.put(target - n[i], i + 1);
+            } else {
+                return new int[] { map.get(n[i]), i + 1 };
+            }
+        }
+        return new int[] {};
+    }
+
+    /**
+     * returns the binary string representation of a value using recursion
+     * 
+     * <p>
+     * O(n) Time
+     * 
+     * @param value
+     * @return
+     */
+    public String computerBinary(int value) {// or Integer.toBinaryString(Value)
+        if (value < 2) {
+            return Integer.toString(value);
+        } else {
+            return computerBinary(value / 2) + computerBinary(value % 2);
+        }
+    }
+
+    /**
+     * potential overflow solution to finding if a int is a palindrome only using
+     * stack space
+     * 
+     * @param x
+     * @return
+     */
+    public static Boolean isIntPalindrome(int x) {
+        // Add your code below this line. Do not modify any other code.
+
+        if (x < 0)
+            return false;
+
+        int rev = 0;
+        int copy = x;
+
+        while (copy > 0) {
+            rev = rev * 10 + copy % 10; // the copy %10 can be stored in a variable remainder
+            copy = copy / 10;
+        }
+
+        return rev == x;
+    }
+
+    // non over-flow solution
+    // public static Boolean isIntPalindrome(int x) {
+
+    // if (x<0) return false;
+
+    // if (x==0) return true;
+
+    // int div=1;
+
+    // while(x/div>=10)
+    // div = div*10;
+
+    // while(x!=0)
+    // {
+    // int l = x/div;
+    // int r = x%10;
+
+    // if (l!=r) return false;
+
+    // x = (x%div)/10;
+    // div = div/100;
+
+    // }
+
+    // return true;
+
+    // }
+
+    /**
+     * deletes the "tail" node of a circularly linked list
+     * 
+     * <p>
+     * O(n) Time and O(1) Space
+     * 
+     * @param head
+     * @return
+     */
+    public Node deleteAtTail(Node head) {
+        if (head == null || head.getNext() == null) {
+            return null;
+        }
+        Node curr = head;
+        Node prev = head;
+
+        while (curr.getNext() != head) {
+            prev = head;
+            curr = curr.getNext();
+        }
+        prev.setNext(curr.getNext());// or set it to head
+        curr.setNext(null);
+        curr = null;
+        return head;
+    }
+
+    /**
+     * Similar to anagrams solution and you can actually use that solution here, but
+     * this is constrained to linear Time and constant space, and you're given
+     * lowercase inputs, so you're not technically constrained to that, but you
+     * should use as less space as possible.
+     * 
+     * <p>
+     * Determine if the two lowercase inputs are anagrams of each other. An anagram
+     * is a string that is formed from re-arranging the letters, using each letter
+     * exactly once. Ex. 'abced' is an anagram of 'abcde'
+     * 
+     * <p>
+     * The first solution I came up for this was to switch the end letter to the
+     * front and append the rest of the string and check if the two strings were
+     * equal, but that was due to me not understanding what an anagram actually was
+     * and the examples being misleading.
+     * 
+     * <p>
+     * O(n) Time and O(1) Space
+     * 
+     * @param one
+     * @param two
+     * @return
+     */
+    public boolean isAnagram(String one, String two) {
+        if (one == null || two == null || one.length() != two.length()) {
+            return false;
+        }
+        int[] letters = new int[26];
+
+        for (int i = 0; i < one.length(); i++) {
+            letters[one.charAt(i - 'a')]++;
+            letters[two.charAt(i) - 'a']--;
+        }
+        for (int i = 0; i < letters.length; i++) {
+            int e = letters[i];
+            if (e != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * adds a new node to the front of a linked list. This was stolen from my
+     * SinglyLinkedList class, but it's the same implementation. I just didn't check
+     * for nulls in this implementation which is cleaner, nor do I return the head.
+     * That problem asks for the head.
+     * 
+     * <p>
+     * O(1) Time and Space
+     * 
+     * @param node
+     */
+    public void pushFront(Node head, Node node) {
+        node.setNext(head);
+        head = node;
+        //nodeCount++;
+    }
+
+    /**
+     * checks whether a given linked list have an even or odd number of nodes
+     * 
+     * O(n) Time and O(1) Space;
+     * 
+     * @param head
+     * @return
+     */
+    public boolean isListEven(Node head){
+        if(head==null){
+            return true;
+        }
+        Node curr = head;
+        int count=0;
+
+        while(curr!=null){
+            count++;
+            curr=curr.getNext();
+        }
+
+        if(count%2==0){
+            return true;
+        }else{
+            return false;
+        }
+
+        /*alternate implementation
+        Node curr = head;
+        while(curr!=null){
+            if(curr.next!=null){
+                curr=curr.next.next;
+            }else{
+                break;
+            }
+        }
+        if(curr==null){
+            return true;
+        }else{
+            return false;
+        }
+        */
+    }
+
     public class TreeNode {
         int data;
         TreeNode left;
@@ -233,6 +482,9 @@ public class Level2 {
             this.data = data;
             this.left = left;
             this.right = right;
+        }
+        public TreeNode(int data){
+            this.data = data;
         }
     }
 }
