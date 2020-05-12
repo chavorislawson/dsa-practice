@@ -18,9 +18,6 @@
 # STS (Spring Tool Suite)
 .springBeans
 
-# Code Recommenders
-.recommenders/
-
 # Annotation Processing
 .apt_generated/
 
