@@ -2,6 +2,8 @@ package dsa.codepractice.firecode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import dsa.datastructures.linkedList.Node;
 
@@ -470,7 +472,154 @@ public class Level2 {
         }else{
             return false;
         }
+        */        
+    }
+
+    /**
+     * find a node with the specified value without using recursion
+     * 
+     * <p>
+     * O(n) Time and Space
+     * 
+     * @param root
+     * @param val
+     * @return
+     */
+    public TreeNode findNode(TreeNode root, int val){
+        if(root==null) return root;
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        TreeNode curr = null;
+        while(!q.isEmpty()){
+            curr = q.remove();
+            if(curr.data == val){
+                return curr;
+            }
+            if(curr.left!=null){
+                q.add(curr.left);
+            }
+            if(curr.right!=null){
+                q.add(curr.right);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * count the number of leaves in a tree
+     * <p>
+     * non-recursive way
+     * <br>
+     * <p>
+     * O(n) Time and Space
+     * 
+     * <p>
+     * recursive way
+     * <br>
+     * <p>
+     * O(n) Time and O(log n) Space - recursion overhead in average case
+     * 
+     * @param root
+     * @return
+     */
+    public int numberOfLeaves(TreeNode root){
+        if(root==null) return 0;
+
+        LinkedList<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        TreeNode curr = null;
+        int count=0;
+
+        ArrayList<Integer> s = new ArrayList<>();
+        q.
+        while(!q.isEmpty()){
+            curr = q.poll();
+
+            if(curr.left==null&&curr.right==null){
+                count++;
+            }else{
+                if(curr.left!=null){
+                    q.add(curr.left);
+                }if(curr.right!=null){
+                    q.add(curr.right);
+                }
+            }
+        }
+        return count;
+
+        /*
+        * recursive way
+
+        public int findLeaves(TreeNode root){
+            if (root==null) return 0;
+
+            if(root.right==null&&root.left==null){
+                return 1;
+            }else{
+                return findLeaves(root.left)+findLeaves(root.right);
+            }
+        }
         */
+    }
+
+    /**
+     * preorder traversal of a tree iteratively
+     * 
+     * <p>
+     * O(n) Time and Space
+     * 
+     * @param root
+     * @return
+     */
+    public ArrayList<Integer> preorderItr(TreeNode root){
+        ArrayList<Integer> preorderList = new ArrayList<>();
+        LinkedList<TreeNode> s = new LinkedList<>();
+
+        if(root==null) return preorderList;
+        s.push(root);
+        while(!s.isEmpty()){
+            root = s.pop();
+            preorderList.add(root.data);
+
+            if(root.right!=null) s.push(root.right);
+            if(root.left!=null) s.push(root.left);
+        }
+
+        return preorderList;
+    }
+
+    /**
+     * reverse an integer
+     * 
+     * <p>
+     * O(n) Time
+     * 
+     * @param num
+     * @return
+     */
+    public int reverseInt(int num){
+        int remainder=x;
+        int rev=0;
+
+        while(remainder/10!=0){
+            rev = remainder%10;
+            rev*=10;
+            remainder/=10;
+        }
+        rev += remainder;
+        return rev;
+
+        /*
+        or
+        int rev=0;
+        while(x!=0){
+            rev = rev*10 + x%10;
+            x/=10;
+        }
+        return rev;
+         */
     }
 
     public class TreeNode {
