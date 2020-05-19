@@ -429,7 +429,7 @@ public class Level2 {
     public void pushFront(Node head, Node node) {
         node.setNext(head);
         head = node;
-        //nodeCount++;
+        // nodeCount++;
     }
 
     /**
@@ -440,39 +440,29 @@ public class Level2 {
      * @param head
      * @return
      */
-    public boolean isListEven(Node head){
-        if(head==null){
+    public boolean isListEven(Node head) {
+        if (head == null) {
             return true;
         }
         Node curr = head;
-        int count=0;
+        int count = 0;
 
-        while(curr!=null){
+        while (curr != null) {
             count++;
-            curr=curr.getNext();
+            curr = curr.getNext();
         }
 
-        if(count%2==0){
+        if (count % 2 == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
 
-        /*alternate implementation
-        Node curr = head;
-        while(curr!=null){
-            if(curr.next!=null){
-                curr=curr.next.next;
-            }else{
-                break;
-            }
-        }
-        if(curr==null){
-            return true;
-        }else{
-            return false;
-        }
-        */        
+        /*
+         * alternate implementation Node curr = head; while(curr!=null){
+         * if(curr.next!=null){ curr=curr.next.next; }else{ break; } } if(curr==null){
+         * return true; }else{ return false; }
+         */
     }
 
     /**
@@ -485,22 +475,23 @@ public class Level2 {
      * @param val
      * @return
      */
-    public TreeNode findNode(TreeNode root, int val){
-        if(root==null) return root;
+    public TreeNode findNode(TreeNode root, int val) {
+        if (root == null)
+            return root;
 
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
 
         TreeNode curr = null;
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             curr = q.remove();
-            if(curr.data == val){
+            if (curr.data == val) {
                 return curr;
             }
-            if(curr.left!=null){
+            if (curr.left != null) {
                 q.add(curr.left);
             }
-            if(curr.right!=null){
+            if (curr.right != null) {
                 q.add(curr.right);
             }
         }
@@ -573,18 +564,21 @@ public class Level2 {
      * @param root
      * @return
      */
-    public ArrayList<Integer> preorderItr(TreeNode root){
+    public ArrayList<Integer> preorderItr(TreeNode root) {
         ArrayList<Integer> preorderList = new ArrayList<>();
         LinkedList<TreeNode> s = new LinkedList<>();
 
-        if(root==null) return preorderList;
+        if (root == null)
+            return preorderList;
         s.push(root);
-        while(!s.isEmpty()){
+        while (!s.isEmpty()) {
             root = s.pop();
             preorderList.add(root.data);
 
-            if(root.right!=null) s.push(root.right);
-            if(root.left!=null) s.push(root.left);
+            if (root.right != null)
+                s.push(root.right);
+            if (root.left != null)
+                s.push(root.left);
         }
 
         return preorderList;
@@ -599,27 +593,47 @@ public class Level2 {
      * @param num
      * @return
      */
-    public int reverseInt(int num){
-        int remainder=x;
-        int rev=0;
+    public int reverseInt(int num) {
+        int remainder = num;
+        int rev = 0;
 
-        while(remainder/10!=0){
-            rev = remainder%10;
-            rev*=10;
-            remainder/=10;
+        while (remainder / 10 != 0) {
+            rev = remainder % 10;
+            rev *= 10;
+            remainder /= 10;
         }
         rev += remainder;
         return rev;
 
         /*
-        or
-        int rev=0;
-        while(x!=0){
-            rev = rev*10 + x%10;
-            x/=10;
-        }
-        return rev;
+         * or int rev=0; while(x!=0){ rev = rev*10 + x%10; x/=10; } return rev;
          */
+    }
+
+    /**
+     * transpose a 2D matrix in place;
+     * 
+     * <p>
+     * O(n) Time and O(1) Space
+     * <p>
+     * Explanation: This O(n) time complexity because in the worst case we have to
+     * transpose every element once so in a 10x10 matrix that would be 100
+     * transpositions. This would only be O(n^2) if for every element in the matrix
+     * we were transposing it with every element in the matrix
+     * 
+     * @param matrix
+     */
+    public void transpose(int[][] matrix) {
+        int temp = 0;
+
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = row + 1; col < matrix[0].length; col++) {
+                temp = matrix[col][row];
+                matrix[col][row] = matrix[row][col];
+                matrix[row][col] = temp;
+            }
+
+        }
     }
 
     public class TreeNode {
@@ -632,7 +646,8 @@ public class Level2 {
             this.left = left;
             this.right = right;
         }
-        public TreeNode(int data){
+
+        public TreeNode(int data) {
             this.data = data;
         }
     }

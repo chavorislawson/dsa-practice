@@ -50,7 +50,7 @@ public class Level1 {
         /*
         Array Solution
 
-        public booean isUnique(String str){
+        public boolean isUnique(String str){
             if(str=null||str.length()==0){
                 return true;
             }
@@ -62,6 +62,21 @@ public class Level1 {
                     return false;
                 }else{
                     boolean[(int) str.charAt(i)]=true;
+                }
+            }
+            return true;
+        }
+
+        My Super Simple Solution
+
+        public boolean isUnique(String str){
+            int[] chars = new int[256];
+
+            for(int i=0;(str!=null&&i<str.length());i++){
+                chars[str.charAt(i)]++;
+
+                if(chars[str.charAt(i)]>0){
+                    return false;
                 }
             }
             return true;
