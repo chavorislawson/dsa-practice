@@ -30,7 +30,7 @@ import dsa.codepractice.firecode.Level2;
 import dsa.codepractice.firecode.Level2.TreeNode;
 import dsa.datastructures.linkedList.Node;
 import dsa.datastructures.linkedList.SinglyLinkedList;
-import dsa.interview.Oracle;
+//import dsa.interview.Oracle;
 
 // import java.util.Iterator; //interface
 // import java.util.ListIterator; //interface
@@ -78,9 +78,9 @@ public class App {
     // root.right = new TreeNode(4);
     // root.right.right = new TreeNode(17);
 
-        Oracle o = new Oracle();
-        int a = o.firstOccurence(new int[] {1,2,3,4,5,6,2,3});
-        System.out.println(a);
+        //Oracle o = new Oracle();
+        //int a = o.firstOccurence(new int[] {1,2,3,4,5,6,2,3});
+        System.out.println("Hello World");
     }
     //abcde,acdbe - true
     //yellow,llowey - true

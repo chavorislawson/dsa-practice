@@ -524,7 +524,7 @@ public class Level2 {
         int count=0;
 
         ArrayList<Integer> s = new ArrayList<>();
-        q.
+        //q.
         while(!q.isEmpty()){
             curr = q.poll();
 
@@ -634,6 +634,67 @@ public class Level2 {
             }
 
         }
+    }
+
+    /**
+     * mergesort on two sorted arrays
+     * 
+     * <p>
+     * O(n log n) Time and O(n) Space
+     * 
+     * @param left
+     * @param right
+     * @return
+     */
+    public int[] merge(int[] left, int[] right){
+        int ltl = left.length;
+        int rtl = right.length;
+
+        int li = 0;
+        int ri =0;
+        int mi=0;
+
+        int[] merged = new int[ltl+rtl];
+
+        while(li<ltl&&ri<rtl){
+            if(left[li]<right[ri]){
+                merged[mi++] = left[li++];
+            }else{
+                merged[mi++] = right[ri++];
+            }
+        }
+        
+        while(li<ltl){
+            merged[mi++]=left[li++];
+        }
+        while(ri<rtl){
+            merged[mi++]=right[ri++];
+        }
+        return merged;
+    }
+
+    /**
+     * iterative fibonacci with O(n) Time and O(1) Space constraint
+     * 
+     * @param n
+     * @return
+     */
+    public int betterFib(int n){
+        if(n<2){
+            return n;
+        }
+
+        int p1=1,p2=0,total=0,count=1;
+
+        while(count!=n){
+            count++;
+
+            total= p1+p2;
+            p2=p1;
+            p2=total;
+        }
+
+        return total;
     }
 
     public class TreeNode {
