@@ -453,7 +453,7 @@ public class Level2 {
 
         /*
          * alternate implementation Node curr = head; while(curr!=null){
-         * if(curr.nextnull){ curr=curr.nextext}else{ break; } } if(curr==null){ return
+         * if(curr.next != null){ curr=curr.next.next}else{ break; } } if(curr==null){ return
          * true; }else{ return false; }
          */
     }
