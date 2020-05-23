@@ -738,6 +738,42 @@ public class Level2 {
          */
     }
 
+    /**
+     * sum up all the elements within a binary tree recursively.
+     * 
+     * <p>
+     * O(n) Time and O(log n) Space for recursion overhead
+     * 
+     * @param root
+     * @return
+     */
+    public int sumOfTree(TreeNode root){
+        return root==null ? 0 : root.data+sumOfTree(root.left)+sumOfTree(root.right);
+    }
+
+    /**
+     * find the max height of a tree recursively.
+     * 
+     * <p>
+     * O(n) Time and O(log n) Space for recursion overhead
+     * 
+     * @param root
+     * @return
+     */
+    public int findHeight(TreeNode root){
+        int lh=0, rh=0, h=0;
+        if(root!=null){
+            lh=1+findHeight(root.left);
+            rh=1+findHeight(root.right);
+            if(lh>=rh){
+                h =lh;
+            }else{
+                h=rh;
+            }
+        }
+        return h;
+    }
+
     public class TreeNode {
         int data;
         TreeNode left;
