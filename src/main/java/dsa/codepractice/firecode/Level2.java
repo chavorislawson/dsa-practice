@@ -6,8 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import dsa.datastructures.linkedList.Node;
-
 public class Level2 {
 
     /**
@@ -172,7 +170,7 @@ public class Level2 {
      */
     public Node remove(Node head, int index) {
         if (index == 1) {
-            return head == null ? head : head.getNext();
+            return head == null ? head : head.next;
         }
         Node curr = head;
         Node prev = head;
@@ -180,11 +178,11 @@ public class Level2 {
         while (curr != null) {
             --index;
             if (index == 0) {
-                prev.setNext(curr.getNext());
-                curr.setNext(null);
+                prev.next = curr.next;
+                curr.next = null;
             }
             prev = curr;
-            curr = curr.getNext();
+            curr = curr.next;
         }
         return head;
     }
@@ -248,10 +246,10 @@ public class Level2 {
 
         Node fast = head;
 
-        while (fast.getNext() != null && fast.getNext().getNext() != null) {
-            fast = fast.getNext().getNext();
+        while (fast.next != null && fast.next.next != null) {
+            fast = fast.next.next;
         }
-        fast.getNext().setNext(new Node(data));
+        fast.next.next = new Node(data);
         return head;
     }
 
@@ -357,18 +355,18 @@ public class Level2 {
      * @return
      */
     public Node deleteAtTail(Node head) {
-        if (head == null || head.getNext() == null) {
+        if (head == null || head.next == null) {
             return null;
         }
         Node curr = head;
         Node prev = head;
 
-        while (curr.getNext() != head) {
+        while (curr.next != head) {
             prev = head;
-            curr = curr.getNext();
+            curr = curr.next;
         }
-        prev.setNext(curr.getNext());// or set it to head
-        curr.setNext(null);
+        prev.next = curr.next;// or set it to head
+        curr.next = null;
         curr = null;
         return head;
     }
@@ -428,7 +426,7 @@ public class Level2 {
      * @param node
      */
     public void pushFront(Node head, Node node) {
-        node.setNext(head);
+        node.next = head;
         head = node;
     }
 
@@ -449,19 +447,14 @@ public class Level2 {
 
         while (curr != null) {
             count++;
-            curr = curr.getNext();
+            curr = curr.next;
         }
-
-        if (count % 2 == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return count % 2 == 0;
 
         /*
          * alternate implementation Node curr = head; while(curr!=null){
-         * if(curr.next!=null){ curr=curr.next.next; }else{ break; } } if(curr==null){
-         * return true; }else{ return false; }
+         * if(curr.nextnull){ curr=curr.nextext}else{ break; } } if(curr==null){ return
+         * true; }else{ return false; }
          */
     }
 
@@ -728,7 +721,7 @@ public class Level2 {
          * if(n<0){ a = 1/a; n = -n; } if(n%2>0){ return x*pow(x*x, n/2); }else{ return
          * pow(x*x,n/2); }
          * 
-         * //My solution 
+         * //My solution
          * 
          * if(n==0)return 1; if(a==0)return a; if(n==1)return a;
          * 
@@ -747,8 +740,8 @@ public class Level2 {
      * @param root
      * @return
      */
-    public int sumOfTree(TreeNode root){
-        return root==null ? 0 : root.data+sumOfTree(root.left)+sumOfTree(root.right);
+    public int sumOfTree(TreeNode root) {
+        return root == null ? 0 : root.data + sumOfTree(root.left) + sumOfTree(root.right);
     }
 
     /**
@@ -760,18 +753,82 @@ public class Level2 {
      * @param root
      * @return
      */
-    public int findHeight(TreeNode root){
-        int lh=0, rh=0, h=0;
-        if(root!=null){
-            lh=1+findHeight(root.left);
-            rh=1+findHeight(root.right);
-            if(lh>=rh){
-                h =lh;
-            }else{
-                h=rh;
+    public int findHeight(TreeNode root) {
+        int lh = 0, rh = 0, h = 0;
+        if (root != null) {
+            lh = 1 + findHeight(root.left);
+            rh = 1 + findHeight(root.right);
+            if (lh >= rh) {
+                h = lh;
+            } else {
+                h = rh;
             }
         }
         return h;
+    }
+
+    /**
+     * delete the head of a circularly linked list
+     * 
+     * <p>
+     * O(n) Time O(1) Space
+     * 
+     * @param head
+     * @return
+     */
+    public Node deleteAtHead(Node head) {
+        if (head == null)
+            return head;
+
+        Node curr = head;
+        while (curr.next != head) {
+            curr = curr.next;
+        }
+        curr.next = head.next;
+        head.next = null;
+        head = curr.next;
+        return head;
+    }
+
+    /**
+     * compress sorted string of text Ex. aaaaabbbbcccc would be a5b5c4
+     * 
+     * <p>
+     * O(n) Time and Space
+     * 
+     * @param text
+     * @return
+     */
+    public String compressText(String text) {
+        if (text == null) {
+            return text;
+        }
+        int l = text.length();
+        StringBuilder cText = new StringBuilder();
+
+        if (l > 2) {
+            char lastChar = text.charAt(0);
+            int count = 1;
+            for (int i = 1; i < l; i++) {
+                if (text.charAt(i) == lastChar) {
+                    count++;
+                } else {
+                    cText.append(lastChar);
+                    if (count > 1) {
+                        cText.append(count);
+                    }
+                    lastChar = text.charAt(i);
+                    count = 1;
+                }
+            }
+        
+        cText.append(lastChar);
+        if (count > 1) {
+            cText.append(count);
+        }
+        return cText.toString();
+    }
+    return text;
     }
 
     public class TreeNode {
@@ -786,6 +843,15 @@ public class Level2 {
         }
 
         public TreeNode(int data) {
+            this.data = data;
+        }
+    }
+
+    public class Node {
+        int data;
+        Node next;
+
+        public Node(int data) {
             this.data = data;
         }
     }
