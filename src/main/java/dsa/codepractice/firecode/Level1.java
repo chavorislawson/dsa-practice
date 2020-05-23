@@ -83,5 +83,39 @@ public class Level1 {
         }
         */
     }
+
+    /**
+     * Reverse a String
+     * 
+     * <p>
+     * O(n) Time and Space
+     * 
+     * @param str
+     * @return
+     */
+    public String reverseString(String str){
+        //StringBuilder solution (recommended way)
+        if(str==null){
+            return str;
+        }
+        StringBuilder out = new StringBuilder();
+
+        for(int i=str.length()-1;i>=0;i--){
+            out.append(str.charAt(i));
+        }
+
+        return out.toString();
+        //My solution
+        // if(str==null){
+        //     return str;
+        // }
+        // String out ="";
+
+        // for(int i=str.length()-1;i>=0;i--){
+        //     out+= str.charAt(i);
+        // }
+
+        // return out;
+    }
     
 }

@@ -3,9 +3,8 @@ package dsa.codepractice.firecode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
-
-import dsa.datastructures.linkedList.Node;
 
 public class Level2 {
 
@@ -171,7 +170,7 @@ public class Level2 {
      */
     public Node remove(Node head, int index) {
         if (index == 1) {
-            return head == null ? head : head.getNext();
+            return head == null ? head : head.next;
         }
         Node curr = head;
         Node prev = head;
@@ -179,11 +178,11 @@ public class Level2 {
         while (curr != null) {
             --index;
             if (index == 0) {
-                prev.setNext(curr.getNext());
-                curr.setNext(null);
+                prev.next = curr.next;
+                curr.next = null;
             }
             prev = curr;
-            curr = curr.getNext();
+            curr = curr.next;
         }
         return head;
     }
@@ -201,7 +200,7 @@ public class Level2 {
      * @param list
      * @param root
      */
-    public void preorder(ArrayList<Integer> list, TreeNode root) {
+    public void preorder(List<Integer> list, TreeNode root) {
         if (root != null) {
             list.add(root.data);
             preorder(list, root.left);
@@ -247,10 +246,10 @@ public class Level2 {
 
         Node fast = head;
 
-        while (fast.getNext() != null && fast.getNext().getNext() != null) {
-            fast = fast.getNext().getNext();
+        while (fast.next != null && fast.next.next != null) {
+            fast = fast.next.next;
         }
-        fast.getNext().setNext(new Node(data));
+        fast.next.next = new Node(data);
         return head;
     }
 
@@ -356,18 +355,18 @@ public class Level2 {
      * @return
      */
     public Node deleteAtTail(Node head) {
-        if (head == null || head.getNext() == null) {
+        if (head == null || head.next == null) {
             return null;
         }
         Node curr = head;
         Node prev = head;
 
-        while (curr.getNext() != head) {
+        while (curr.next != head) {
             prev = head;
-            curr = curr.getNext();
+            curr = curr.next;
         }
-        prev.setNext(curr.getNext());// or set it to head
-        curr.setNext(null);
+        prev.next = curr.next;// or set it to head
+        curr.next = null;
         curr = null;
         return head;
     }
@@ -427,9 +426,8 @@ public class Level2 {
      * @param node
      */
     public void pushFront(Node head, Node node) {
-        node.setNext(head);
+        node.next = head;
         head = node;
-        // nodeCount++;
     }
 
     /**
@@ -449,19 +447,14 @@ public class Level2 {
 
         while (curr != null) {
             count++;
-            curr = curr.getNext();
+            curr = curr.next;
         }
-
-        if (count % 2 == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return count % 2 == 0;
 
         /*
          * alternate implementation Node curr = head; while(curr!=null){
-         * if(curr.next!=null){ curr=curr.next.next; }else{ break; } } if(curr==null){
-         * return true; }else{ return false; }
+         * if(curr.next != null){ curr=curr.next.next}else{ break; } } if(curr==null){ return
+         * true; }else{ return false; }
          */
     }
 
@@ -501,39 +494,37 @@ public class Level2 {
     /**
      * count the number of leaves in a tree
      * <p>
-     * non-recursive way
-     * <br>
+     * non-recursive way <br>
      * <p>
      * O(n) Time and Space
      * 
      * <p>
-     * recursive way
-     * <br>
+     * recursive way <br>
      * <p>
      * O(n) Time and O(log n) Space - recursion overhead in average case
      * 
      * @param root
      * @return
      */
-    public int numberOfLeaves(TreeNode root){
-        if(root==null) return 0;
+    public int numberOfLeaves(TreeNode root) {
+        if (root == null)
+            return 0;
 
         LinkedList<TreeNode> q = new LinkedList<>();
         q.add(root);
         TreeNode curr = null;
-        int count=0;
+        int count = 0;
 
-        ArrayList<Integer> s = new ArrayList<>();
-        //q.
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             curr = q.poll();
 
-            if(curr.left==null&&curr.right==null){
+            if (curr.left == null && curr.right == null) {
                 count++;
-            }else{
-                if(curr.left!=null){
+            } else {
+                if (curr.left != null) {
                     q.add(curr.left);
-                }if(curr.right!=null){
+                }
+                if (curr.right != null) {
                     q.add(curr.right);
                 }
             }
@@ -541,30 +532,25 @@ public class Level2 {
         return count;
 
         /*
-        * recursive way
-
-        public int findLeaves(TreeNode root){
-            if (root==null) return 0;
-
-            if(root.right==null&&root.left==null){
-                return 1;
-            }else{
-                return findLeaves(root.left)+findLeaves(root.right);
-            }
-        }
-        */
+         * recursive way
+         * 
+         * public int findLeaves(TreeNode root){ if (root==null) return 0;
+         * 
+         * if(root.right==null&&root.left==null){ return 1; }else{ return
+         * findLeaves(root.left)+findLeaves(root.right); } }
+         */
     }
 
     /**
      * preorder traversal of a tree iteratively
      * 
      * <p>
-     * O(n) Time and Space
+     * O(n) Time and O(log n) Space
      * 
      * @param root
      * @return
      */
-    public ArrayList<Integer> preorderItr(TreeNode root) {
+    public List<Integer> preorderItr(TreeNode root) {
         ArrayList<Integer> preorderList = new ArrayList<>();
         LinkedList<TreeNode> s = new LinkedList<>();
 
@@ -646,29 +632,29 @@ public class Level2 {
      * @param right
      * @return
      */
-    public int[] merge(int[] left, int[] right){
+    public int[] merge(int[] left, int[] right) {
         int ltl = left.length;
         int rtl = right.length;
 
         int li = 0;
-        int ri =0;
-        int mi=0;
+        int ri = 0;
+        int mi = 0;
 
-        int[] merged = new int[ltl+rtl];
+        int[] merged = new int[ltl + rtl];
 
-        while(li<ltl&&ri<rtl){
-            if(left[li]<right[ri]){
+        while (li < ltl && ri < rtl) {
+            if (left[li] < right[ri]) {
                 merged[mi++] = left[li++];
-            }else{
+            } else {
                 merged[mi++] = right[ri++];
             }
         }
-        
-        while(li<ltl){
-            merged[mi++]=left[li++];
+
+        while (li < ltl) {
+            merged[mi++] = left[li++];
         }
-        while(ri<rtl){
-            merged[mi++]=right[ri++];
+        while (ri < rtl) {
+            merged[mi++] = right[ri++];
         }
         return merged;
     }
@@ -679,22 +665,170 @@ public class Level2 {
      * @param n
      * @return
      */
-    public int betterFib(int n){
-        if(n<2){
+    public int betterFib(int n) {
+        if (n < 2) {
             return n;
         }
 
-        int p1=1,p2=0,total=0,count=1;
+        int p1 = 1, p2 = 0, total = 0, count = 1;
 
-        while(count!=n){
+        while (count != n) {
             count++;
 
-            total= p1+p2;
-            p2=p1;
-            p2=total;
+            total = p1 + p2;
+            p2 = p1;
+            p2 = total;
         }
 
         return total;
+    }
+
+    /**
+     * raise the power of a number to a specified value.
+     * 
+     * <p>
+     * Iterative = O(n) Time O(1) space, Fast Recursive = O(log n) Space and Time,
+     * Recursive = O(n) Time and O(log n) Space?
+     * 
+     * @param a
+     * @param n
+     * @return
+     */
+    public double pow(double a, int n) {
+        // Iterative Solution
+        if (n == 0) {
+            return 1;
+        }
+        int posN = n;
+        if (n < 0) {
+            posN = -n;
+        }
+        double multi = a;
+        for (int i = 2; i <= posN; i++) {
+            a *= multi;
+        }
+        if (n < 0) {
+            a = 1 / a;
+            return a;
+        }
+        return a;
+        /*
+         * Fast recursive
+         * 
+         * public void int pow(doubl a, int n){ if(n==0)return 1; if(a==0)return a;
+         * if(n==1)return a;
+         * 
+         * if(n<0){ a = 1/a; n = -n; } if(n%2>0){ return x*pow(x*x, n/2); }else{ return
+         * pow(x*x,n/2); }
+         * 
+         * //My solution
+         * 
+         * if(n==0)return 1; if(a==0)return a; if(n==1)return a;
+         * 
+         * if(n<0){ a = 1/a; n = -n; }
+         * 
+         * return x*pow(x,n-1); }
+         */
+    }
+
+    /**
+     * sum up all the elements within a binary tree recursively.
+     * 
+     * <p>
+     * O(n) Time and O(log n) Space for recursion overhead
+     * 
+     * @param root
+     * @return
+     */
+    public int sumOfTree(TreeNode root) {
+        return root == null ? 0 : root.data + sumOfTree(root.left) + sumOfTree(root.right);
+    }
+
+    /**
+     * find the max height of a tree recursively.
+     * 
+     * <p>
+     * O(n) Time and O(log n) Space for recursion overhead
+     * 
+     * @param root
+     * @return
+     */
+    public int findHeight(TreeNode root) {
+        int lh = 0, rh = 0, h = 0;
+        if (root != null) {
+            lh = 1 + findHeight(root.left);
+            rh = 1 + findHeight(root.right);
+            if (lh >= rh) {
+                h = lh;
+            } else {
+                h = rh;
+            }
+        }
+        return h;
+    }
+
+    /**
+     * delete the head of a circularly linked list
+     * 
+     * <p>
+     * O(n) Time O(1) Space
+     * 
+     * @param head
+     * @return
+     */
+    public Node deleteAtHead(Node head) {
+        if (head == null)
+            return head;
+
+        Node curr = head;
+        while (curr.next != head) {
+            curr = curr.next;
+        }
+        curr.next = head.next;
+        head.next = null;
+        head = curr.next;
+        return head;
+    }
+
+    /**
+     * compress sorted string of text Ex. aaaaabbbbcccc would be a5b5c4
+     * 
+     * <p>
+     * O(n) Time and Space
+     * 
+     * @param text
+     * @return
+     */
+    public String compressText(String text) {
+        if (text == null) {
+            return text;
+        }
+        int l = text.length();
+        StringBuilder cText = new StringBuilder();
+
+        if (l > 2) {
+            char lastChar = text.charAt(0);
+            int count = 1;
+            for (int i = 1; i < l; i++) {
+                if (text.charAt(i) == lastChar) {
+                    count++;
+                } else {
+                    cText.append(lastChar);
+                    if (count > 1) {
+                        cText.append(count);
+                    }
+                    lastChar = text.charAt(i);
+                    count = 1;
+                }
+            }
+        
+        cText.append(lastChar);
+        if (count > 1) {
+            cText.append(count);
+        }
+        return cText.toString();
+    }
+    return text;
     }
 
     public class TreeNode {
@@ -709,6 +843,15 @@ public class Level2 {
         }
 
         public TreeNode(int data) {
+            this.data = data;
+        }
+    }
+
+    public class Node {
+        int data;
+        Node next;
+
+        public Node(int data) {
             this.data = data;
         }
     }
