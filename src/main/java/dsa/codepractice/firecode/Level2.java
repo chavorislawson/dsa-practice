@@ -3,6 +3,7 @@ package dsa.codepractice.firecode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import dsa.datastructures.linkedList.Node;
@@ -201,7 +202,7 @@ public class Level2 {
      * @param list
      * @param root
      */
-    public void preorder(ArrayList<Integer> list, TreeNode root) {
+    public void preorder(List<Integer> list, TreeNode root) {
         if (root != null) {
             list.add(root.data);
             preorder(list, root.left);
@@ -429,7 +430,6 @@ public class Level2 {
     public void pushFront(Node head, Node node) {
         node.setNext(head);
         head = node;
-        // nodeCount++;
     }
 
     /**
@@ -501,39 +501,37 @@ public class Level2 {
     /**
      * count the number of leaves in a tree
      * <p>
-     * non-recursive way
-     * <br>
+     * non-recursive way <br>
      * <p>
      * O(n) Time and Space
      * 
      * <p>
-     * recursive way
-     * <br>
+     * recursive way <br>
      * <p>
      * O(n) Time and O(log n) Space - recursion overhead in average case
      * 
      * @param root
      * @return
      */
-    public int numberOfLeaves(TreeNode root){
-        if(root==null) return 0;
+    public int numberOfLeaves(TreeNode root) {
+        if (root == null)
+            return 0;
 
         LinkedList<TreeNode> q = new LinkedList<>();
         q.add(root);
         TreeNode curr = null;
-        int count=0;
+        int count = 0;
 
-        ArrayList<Integer> s = new ArrayList<>();
-        //q.
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             curr = q.poll();
 
-            if(curr.left==null&&curr.right==null){
+            if (curr.left == null && curr.right == null) {
                 count++;
-            }else{
-                if(curr.left!=null){
+            } else {
+                if (curr.left != null) {
                     q.add(curr.left);
-                }if(curr.right!=null){
+                }
+                if (curr.right != null) {
                     q.add(curr.right);
                 }
             }
@@ -541,30 +539,25 @@ public class Level2 {
         return count;
 
         /*
-        * recursive way
-
-        public int findLeaves(TreeNode root){
-            if (root==null) return 0;
-
-            if(root.right==null&&root.left==null){
-                return 1;
-            }else{
-                return findLeaves(root.left)+findLeaves(root.right);
-            }
-        }
-        */
+         * recursive way
+         * 
+         * public int findLeaves(TreeNode root){ if (root==null) return 0;
+         * 
+         * if(root.right==null&&root.left==null){ return 1; }else{ return
+         * findLeaves(root.left)+findLeaves(root.right); } }
+         */
     }
 
     /**
      * preorder traversal of a tree iteratively
      * 
      * <p>
-     * O(n) Time and Space
+     * O(n) Time and O(log n) Space
      * 
      * @param root
      * @return
      */
-    public ArrayList<Integer> preorderItr(TreeNode root) {
+    public List<Integer> preorderItr(TreeNode root) {
         ArrayList<Integer> preorderList = new ArrayList<>();
         LinkedList<TreeNode> s = new LinkedList<>();
 
@@ -646,29 +639,29 @@ public class Level2 {
      * @param right
      * @return
      */
-    public int[] merge(int[] left, int[] right){
+    public int[] merge(int[] left, int[] right) {
         int ltl = left.length;
         int rtl = right.length;
 
         int li = 0;
-        int ri =0;
-        int mi=0;
+        int ri = 0;
+        int mi = 0;
 
-        int[] merged = new int[ltl+rtl];
+        int[] merged = new int[ltl + rtl];
 
-        while(li<ltl&&ri<rtl){
-            if(left[li]<right[ri]){
+        while (li < ltl && ri < rtl) {
+            if (left[li] < right[ri]) {
                 merged[mi++] = left[li++];
-            }else{
+            } else {
                 merged[mi++] = right[ri++];
             }
         }
-        
-        while(li<ltl){
-            merged[mi++]=left[li++];
+
+        while (li < ltl) {
+            merged[mi++] = left[li++];
         }
-        while(ri<rtl){
-            merged[mi++]=right[ri++];
+        while (ri < rtl) {
+            merged[mi++] = right[ri++];
         }
         return merged;
     }
@@ -679,22 +672,70 @@ public class Level2 {
      * @param n
      * @return
      */
-    public int betterFib(int n){
-        if(n<2){
+    public int betterFib(int n) {
+        if (n < 2) {
             return n;
         }
 
-        int p1=1,p2=0,total=0,count=1;
+        int p1 = 1, p2 = 0, total = 0, count = 1;
 
-        while(count!=n){
+        while (count != n) {
             count++;
 
-            total= p1+p2;
-            p2=p1;
-            p2=total;
+            total = p1 + p2;
+            p2 = p1;
+            p2 = total;
         }
 
         return total;
+    }
+
+    /**
+     * raise the power of a number to a specified value.
+     * 
+     * <p>
+     * Iterative = O(n) Time O(1) space, Fast Recursive = O(log n) Space and Time,
+     * Recursive = O(n) Time and O(log n) Space?
+     * 
+     * @param a
+     * @param n
+     * @return
+     */
+    public double pow(double a, int n) {
+        // Iterative Solution
+        if (n == 0) {
+            return 1;
+        }
+        int posN = n;
+        if (n < 0) {
+            posN = -n;
+        }
+        double multi = a;
+        for (int i = 2; i <= posN; i++) {
+            a *= multi;
+        }
+        if (n < 0) {
+            a = 1 / a;
+            return a;
+        }
+        return a;
+        /*
+         * Fast recursive
+         * 
+         * public void int pow(doubl a, int n){ if(n==0)return 1; if(a==0)return a;
+         * if(n==1)return a;
+         * 
+         * if(n<0){ a = 1/a; n = -n; } if(n%2>0){ return x*pow(x*x, n/2); }else{ return
+         * pow(x*x,n/2); }
+         * 
+         * //My solution 
+         * 
+         * if(n==0)return 1; if(a==0)return a; if(n==1)return a;
+         * 
+         * if(n<0){ a = 1/a; n = -n; }
+         * 
+         * return x*pow(x,n-1); }
+         */
     }
 
     public class TreeNode {
