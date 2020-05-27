@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Level3 {
 
-    public Node findNthNodeFromEnd(Node head){
+    public Node findNthNodeFromEnd(Node head, int n){
         int count=1;
         Node temp = head;
         while(temp!=null){
@@ -110,6 +110,80 @@ public class Level3 {
         //stores the maxSum of the greatValue from the right, left, and the root value.
         maxValueHolder[0] = Math.max(maxValueHolder[0],leftSum + root.data + rightSum);
         return greatestPathValue;
+    }
+
+    /**
+     * rotates an integer array by a number of digits to the left.
+     * 
+     * <p>
+     * O(n) Time, O(1) Space
+     * 
+     * @param arr
+     * @param k
+     * @return
+     */
+    public int[] rotateLeft(int[] arr, int k){
+        if(arr==null) return new int[]{};
+        int s = k % arr.length;
+        reverse(arr, 0, arr.length-1);
+        reverse(arr, 0, arr.length-s-1);
+        reverse(arr, arr.length-s, arr.length-1);
+        return arr;
+        /* brute force solution
+        if(arr==null||arr.length<2||k==0||k==arr.length){
+            return arr;
+        }
+        int temp=0;
+
+        for(int i=0;i<k;i++){
+            for(int j=0;j<arr.length-1;i++){
+                temp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=temp;
+            }
+        }
+        */
+    }
+
+    /**
+     * helper method for rotateLeft by first reversing the array, the switching the
+     * new front, and then swithching the new back.
+     * 
+     * @param arr
+     * @param left
+     * @param right
+     */
+    public void reverse(int[] arr, int left, int right){
+        if(arr==null||arr.length==1) return;
+        while(left<right){
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+    }
+
+    /**
+     * find the kth largest element in a BST (is not working right now)
+     * 
+     * @param root
+     * @param k
+     * @return
+     */
+    public TreeNode findKthLargest(TreeNode root, int k){
+        if(root==null) return root;
+        int rightSize=0;
+        if(root.right!=null){
+            //rightSize=size(root.right); need to figure out this mysterious size method
+        }
+        if(rightSize+1==k){
+            return root;
+        }else if(k<=rightSize){
+            return findKthLargest(root.right, k);
+        }else{
+            return findKthLargest(root.left, k-rightSize-1);
+        }
     }
 
 
