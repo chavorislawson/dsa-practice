@@ -1,5 +1,6 @@
 package dsa.codepractice.firecode;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class Level1 {
@@ -116,6 +117,26 @@ public class Level1 {
         // }
 
         // return out;
+    }
+    
+    /**
+     * find duplicate numbers in an integer array and return the result as a String
+     * 
+     * <p>
+     * O(n log n) Time and O(n) Space
+     * 
+     * @param arr
+     * @return
+     */
+    public String findDuplicate(int[] arr){
+        Arrays.sort(arr);
+        HashSet<Integer> dups = new HashSet<>();
+        for(int i=0;i<arr.length-1;i++){
+            if(arr[i]==arr[i+1]){
+                dups.add(arr[i]);
+            }
+        }
+        return dups.toString();
     }
     
 }

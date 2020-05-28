@@ -1,8 +1,5 @@
 package dsa.app;
 
-import dsa.codepractice.firecode.Level2;
-import dsa.codepractice.firecode.Level3;
-
 /**
  * Application runner
  * 

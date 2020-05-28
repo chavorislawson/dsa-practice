@@ -186,6 +186,55 @@ public class Level3 {
         }
     }
 
+    /**
+     * find the number of half nodes (nodes who have one child) in a Binary Tree
+     * 
+     * <p>
+     * O(n) Space (iterative soln)
+     * 
+     * @param root
+     * @return
+     */
+    public int findNumberOfHalfNodes(TreeNode root){
+        int total = 0;
+        if(root==null) return total;
+        return (root.right!=null&&root.left==null)||(root.right==null&&root.left!=null) ? total+1+findNumberOfHalfNodes(root.left)+findNumberOfHalfNodes(root.right): total+findNumberOfHalfNodes(root.right)+findNumberOfHalfNodes(root.left);
+        /*
+        My OG solution
+        if(root.right!=null&&root.left==null){
+            total+=1+findNumberOfHalfNodes(root.right);
+        }else if (root.right==null&&root.left!=null){
+            total+=1+findNumberOfHalfNodes(root.left);
+        }else{
+            total+=findNumberOfHalfNodes(root.right)+findNumberOfHalfNodes(root.left);
+        }
+        return total;
+
+        //super clean recursion
+        if(root.right==null ^ root.left==null) //xor
+            total=1;
+        return total+ findNumberOfHalfNodes(root.right)+findNumberOfHalfNodes(root.left);
+
+        //there iterative solution
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        TreeNode curr = null
+        while(!q.isEmpty()){
+            curr = q.remove();
+            if((curr.right!=null&&curr.left==null)||(curr.right==null&&curr.left!=null)){
+                total++;
+            }
+            if(curr.left!=null){
+                q.add(curr.right);
+            }if(curr.right!=null){
+                q.add(curr.left);
+            }
+        }
+        return total;
+
+        */
+    }
+
 
 	class Node{
         int data;
