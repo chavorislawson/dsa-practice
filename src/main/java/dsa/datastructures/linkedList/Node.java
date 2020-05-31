@@ -1,8 +1,8 @@
 package dsa.datastructures.linkedList;
 
 public class Node {
-	private int data;
-	private Node next;
+	public int data;
+	public Node next;
 
 	/*
 	 * Don't do this. It doesn't make sense to add a new node with no data in it 

@@ -6,6 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import dsa.datastructures.linkedList.Node;
+import dsa.datastructures.trees.TreeNode;
+
 public class Level2 {
 
     /**
@@ -829,30 +832,5 @@ public class Level2 {
         return cText.toString();
     }
     return text;
-    }
-
-    public class TreeNode {
-        int data;
-        TreeNode left;
-        TreeNode right;
-
-        public TreeNode(int data, TreeNode left, TreeNode right) {
-            this.data = data;
-            this.left = left;
-            this.right = right;
-        }
-
-        public TreeNode(int data) {
-            this.data = data;
-        }
-    }
-
-    public class Node {
-        int data;
-        Node next;
-
-        public Node(int data) {
-            this.data = data;
-        }
     }
 }

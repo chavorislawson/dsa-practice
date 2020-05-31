@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import dsa.datastructures.linkedList.Node;
+import dsa.datastructures.trees.TreeNode;
+
 public class Level3 {
 
     public Node findNthNodeFromEnd(Node head, int n){
@@ -37,29 +40,30 @@ public class Level3 {
     public List<Integer> inorderTraversal(TreeNode root){
         if(root==null) return new ArrayList<>();
 
-        ArrayList<Integer> order = new ArrayList<>();
-        LinkedList<TreeNode> s = new LinkedList<>();
-        TreeNode temp = root;
-        s.push(temp);
+        //fix this code
+        // ArrayList<Integer> order = new ArrayList<>();
+        // LinkedList<TreeNode> s = new LinkedList<>();
+        // TreeNode temp = root;
+        // s.push(temp);
 
-        while(!s.isEmpty()){
-            if(temp.left!=null&&!order.contains(temp.left.data)){
-                s.add(temp);
-                temp=temp.left;
-            }else{
-                temp = s.pop();
-                order.add(temp.data);
-                if(temp.right!=null){
-                    s.push(temp.right);
-                    temp=temp.right;
-                }
-            }
-        }
-        return order;
+        // while(!s.isEmpty()){
+        //     if(temp.left!=null&&!order.contains(temp.left.data)){
+        //         s.add(temp);
+        //         temp=temp.left;
+        //     }else{
+        //         temp = s.pop();
+        //         order.add(temp.data);
+        //         if(temp.right!=null){
+        //             s.push(temp.right);
+        //             temp=temp.right;
+        //         }
+        //     }
+        // }
+        // return order;
         /* 
         There version
         <pre>
-        @code{
+        @code{*/
         ArrayList<Integer> order = new ArrayList<>();
         LinkedList<TreeNode> s = new LinkedList<>();
         //s.push(root);
@@ -74,7 +78,7 @@ public class Level3 {
             root=root.right;
         } 
         return order;
-    }
+    /*}
         </pre>
         */
     }
@@ -235,15 +239,105 @@ public class Level3 {
         */
     }
 
-
-	class Node{
-        int data;
-        Node next;
+    /**
+     * find all possible paths from the top left corner to the bottom right in a
+     * multi-dimensional array only going in two directions: right and down. This
+     * uses a DFS algorithm on a graph problem.
+     * 
+     * <p>
+     * O(b^d) Time (b = branching in this case = 2 because only going down and right
+     * and d = m+n where m represents the length of the row and n represents the length
+     * of the column.)
+     * 
+     * <p>
+     * O(bxd) Space using same answers for b and d above. 
+     * @param board
+     * @return
+     */
+    public List<String> printPaths(char[][] board){
+        ArrayList<String> paths = new ArrayList<>();
+        StringBuilder pPaths = new StringBuilder();
+        search(board, paths, pPaths, 0,0);
+        return paths;
     }
 
-    class TreeNode{
-        int data;
-        TreeNode left;
-        TreeNode right;
+    /**
+     * printPaths helper method that uses DFS algorithm to find all possible paths
+     * 
+     * @param board
+     * @param paths
+     * @param pPaths
+     * @param row
+     * @param col
+     */
+    public void search(char[][] board, List<String> paths, StringBuilder pPaths, int row, int col){
+        if(board==null||row>board.length-1||col>board[0].length){
+            return;
+        }
+        pPaths.append(board[row][col]);
+        if(row==board.length-1&&col==board[0].length-1){
+            paths.add(pPaths.toString());
+            pPaths.deleteCharAt(pPaths.length()-1);
+            return;
+        }
+        search(board, paths, pPaths, row+1, col);
+        search(board, paths, pPaths, row, col+1);
+        pPaths.deleteCharAt(pPaths.length()-1);
+    }
+
+    /**
+     * insert a node into a BST 
+     * 
+     * <p>
+     * O(log n) Time and O(log n) Space for recursive and O(1) for iterative
+     * 
+     * @param root
+     * @param data
+     * @return
+     */
+    public TreeNode insert(TreeNode root, int data){
+        if(root==null) return new TreeNode(data);
+
+        if(data<root.data){
+            if(root.right!=null){
+                insert(root.right, data);
+            }else{
+                root.right = new TreeNode(data);
+            }
+        }else{
+            if(root.left!=null){
+                insert(root.right,data);
+            }else{
+                root.right = new TreeNode(data);
+            }
+        }
+        //Someone else's version
+        //if(data<root.data) root.left=insert(root.left, data); 
+        //else root.right=insert(root.right, data);
+
+        //iterative solution
+        /* 
+        TreeNode curr = root;
+        boolean inserted = false;
+        while(!inserted){
+            if(data<curr.data){
+                if(curr.right!=null){
+                    curr = curr.right;
+                }else{
+                    curr.right = new TreeNode(data);
+                    inserted = true;
+                }
+            }else{
+                if(curr.left!=null){
+                    curr = curr.right;
+                }else{
+                    curr.right = new TreeNode(data);
+                    inserted = true;
+                }
+            }
+        }
+        */
+
+        return root;
     }
 }
