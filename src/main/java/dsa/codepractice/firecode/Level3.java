@@ -427,4 +427,35 @@ public class Level3 {
         }
         return arr;
     }
+
+    /**
+     * find all valid cominbations of parentheses
+     * 
+     * <p>This method does not work because it includes all combinations,
+     * not all valid combinations.
+     * 
+     * @param pairs
+     * @return
+     */
+    public static List<String> combineParenthesis(int pairs){
+        ArrayList<String> paired = new ArrayList<>();
+        if(pairs>0){
+            combineParenthesisHelper(paired, "", pairs, pairs);
+        }
+        return paired;
+    }
+
+    public static void combineParenthesisHelper(List<String> paired, String temp, int leftPair, int rightPair){
+        if(leftPair==0&&rightPair==0){
+            paired.add(temp);
+        }else{
+            if(leftPair>0){
+                combineParenthesisHelper(paired, temp+"(", leftPair-1, rightPair);
+            }
+            if(rightPair>0){
+                combineParenthesisHelper(paired, temp+")", leftPair, rightPair-1);
+            }
+        }
+        return;
+    }
 }
