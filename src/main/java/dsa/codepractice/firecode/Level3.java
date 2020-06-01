@@ -87,13 +87,15 @@ public class Level3 {
      * max sum of left, right, and root of tree by comparing greatest values of paths.
      * 
      * <p>
-     * O(n) Time and O(log n) Space?
+     * O(n) Time and O(log n) Space
      * 
      * @param root
      * @return
      */
     public int maxSumPath(TreeNode root){
         int[] maxValueHolder = new int[1];
+        //you use an array object because primitive values sent into a method
+        //don't get modified
         maxSumPathHelper(root, maxValueHolder);
         return maxValueHolder[0];
     }
@@ -339,5 +341,90 @@ public class Level3 {
         */
 
         return root;
+    }
+
+    /**
+     * find the smallest value in a BST.
+     * 
+     * <p>
+     * O(log n) Time and Space
+     * 
+     * @param root
+     * @return
+     */
+    public TreeNode findMin(TreeNode root){
+        if(root==null) return root;
+        return root!=null ? findMin(root.left) : root;
+
+        /*
+         * Iterative solution
+         * 
+         * TreeNode curr = root;
+         * While(cur.left!=null){
+         *  curr= curr.left
+         * }
+         * return curr;
+         */
+    }
+
+    /**
+     * find if a number is happy by these rules: if number ==1
+     * after repeatedly summing the number's digits, if not then
+     * it's not a happy num
+     * 
+     * <p>
+     * Example: 19 = 1^2+ 9^2 = 82
+     * <p>8^2 + 2^2 = 68
+     * <p> 6^+8^2 = 100
+     * <p> 1^2 + 0 + 0 = 1
+     * <p> return true
+     * 
+     * <p>
+     * O(n^2) Time and O(n) Space
+     * 
+     * @param n
+     * @return
+     */
+    public static boolean isHappyNumber(int n) {
+        //Fix this string solution
+        // if(n<10&&n==1) return true;
+        // int arrSize = 2;
+        
+        // while(arrSize>1){
+        //     String happyString = Integer.toString(n);
+        //     arrSize = happyString.length();
+        //     for(int i=0;i<arrSize-1; i++){
+        //         int temp = Integer.parseInt(happyString.substring(i,i+1));
+        //         n+= temp*temp;
+        //     }
+        //     if(n==1) return true;
+        // }
+        // return false;
+        if(n<10&&n==1) return true;
+        int[] arr = happyHelper(n);
+        int sum = n;
+        while(sum>9){
+            sum =0;
+            for(int i=0;i<arr.length;i++){
+                sum += arr[i]*arr[i];
+            }
+            if(sum==1){
+                return true;
+            }
+            arr = happyHelper(sum);
+        }
+        return false;
+    }
+    public static int[] happyHelper(int n){
+        String s = Integer.toString(n); //String.valueOf(n)
+        int length = s.length();
+        int[] arr = new int[length];
+        int i=0;
+        while(n>0){
+            int rem = n%10;
+            arr[i++] = rem;
+            n/=10;
+        }
+        return arr;
     }
 }
