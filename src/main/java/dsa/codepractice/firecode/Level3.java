@@ -1,5 +1,7 @@
 package dsa.codepractice.firecode;
 
+import static org.mockito.Mockito.never;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -457,5 +459,102 @@ public class Level3 {
             }
         }
         return;
+    }
+
+    /**
+     * delete node at specified position in doubly linked list
+     * 
+     * <p>
+     * O(n) Time O(1) Space
+     * @param head
+     * @param pos
+     * @return
+     */
+    public Node deleteAtPos(Node head, int pos){
+        if(head==null||(head.next==null&&pos==1)) return null;
+        if(pos<1){
+            return head;
+        }
+        Node prev = head;
+        Node curr = head;
+
+        if(pos==1){
+            head = head.next;
+            head.prev=null;
+            curr.next=null;
+            curr=null;
+            return head;
+        }
+
+        int count=1;
+        while(curr!=null){
+            if(pos==count){
+                prev.next=curr.next;
+                if(curr.next!=null){
+                    curr.next.prev = prev;
+                    curr.next=null;
+                }
+                curr.prev=null;
+                curr=null;
+                return head;
+            }
+            prev=curr;
+            curr=curr.next;
+            count++;
+        }
+        return head;
+    }
+
+    /**
+     * add all the elements in the binary tree
+     * 
+     * <p>
+     * O(n) Time for recursive and Iterative, O(log n) for recursive and O(n) for iterative
+     * @param root
+     * @return
+     */
+    public int sumBinaryTree(TreeNode root){
+        //recursive solution
+        //if(root==null) return 0;
+        //return root.data+sumBinaryTree(root.left)+sumBinaryTree(root.right);
+
+        //Iterative solution
+        if(root==null) return 0;
+        int sum =0;
+        TreeNode temp = root;
+        LinkedList<TreeNode> q = new LinkedList<>();
+        q.push(root);
+        
+        while(!q.isEmpty()){
+            temp = q.pop();
+            sum+=temp.data;
+            if(temp.left!=null){
+                q.push(temp.left);
+            }
+            if(temp.right!=null){
+                q.push(temp.right);
+            }
+        }
+        return sum;
+    }
+
+    /**
+     * insert node at the head of a doubly linked list
+     * 
+     * <p>
+     * O(1) Time
+     * 
+     * @param head
+     * @param data
+     * @return
+     */
+    public Node insertAtHead(Node head,int data){
+        if(head==null) return new Node(data);
+        Node newHead = head;
+        newHead.next = head;
+        newHead.prev = null;
+        head.prev = newHead;
+        head = newHead;
+        return head;
     }
 }

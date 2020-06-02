@@ -5,14 +5,31 @@ import java.util.HashSet;
 
 public class Level1 {
 
-    // public static void flipItVerticalAxis(int[][] matrix) {
-    //     int[][] newM;
-    //     for (int r = 0; r < matrix[r].length; r++) {
-    //         for (int c = matrix[r][c].length; c > 0; c--) {
-    //             newM[r][c] = matrix[r][c];
-    //         }
-    //     }
-    // }
+    /**
+     * flip a matrix on it's vertical axis in place
+     * 
+     * <p>
+     * O(n) time and O(1) Space
+     * @param matrix
+     */
+    public static void flipItVerticalAxis(int[][] matrix) {
+        if(matrix==null) return;
+        //some old solution I fixed
+        // int[][] newM = new int[matrix.length][matrix[0].length];
+        // for (int r = 0; r < matrix.length; r++) {
+        //     for (int c = matrix[r].length-1; c > 0; c--) {
+        //         newM[r][matrix[r].length-c+1] = matrix[r][c];
+        //     }
+        // }
+        int temp = 0;
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length/2;j++){
+                temp = matrix[i][j];
+                matrix[i][j] = matrix[i][matrix[0].length-j-1];
+                matrix[i][matrix[0].length-j-1] = temp;
+            }
+        }
+    }
 
     /**
      * determines if a string has unique character in it or not
