@@ -473,7 +473,7 @@ public class Level3 {
             if(leftPair>0){
                 combineParenthesisHelper(paired, temp+"(", leftPair-1, rightPair);
             }
-            if(rightPair>0){
+            if(rightPair>leftPair){
                 combineParenthesisHelper(paired, temp+")", leftPair, rightPair-1);
             }
         }
