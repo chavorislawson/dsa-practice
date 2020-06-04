@@ -173,25 +173,44 @@ public class Level3 {
     }
 
     /**
-     * find the kth largest element in a BST (is not working right now)
+     * find the kth largest element in a BST
+     * 
+     * <p> O(n) Time and O(log n) Space
      * 
      * @param root
      * @param k
      * @return
      */
     public TreeNode findKthLargest(TreeNode root, int k){
-        if(root==null) return root;
-        int rightSize=0;
-        if(root.right!=null){
-            //rightSize=size(root.right); need to figure out this mysterious size method
+        // if(root==null) return root;
+        // int rightSize=0;
+        // if(root.right!=null){
+        //     //rightSize=size(root.right); need to figure out this mysterious size method
+        // }
+        // if(rightSize+1==k){
+        //     return root;
+        // }else if(k<=rightSize){
+        //     return findKthLargest(root.right, k);
+        // }else{
+        //     return findKthLargest(root.left, k-rightSize-1);
+        // }
+
+        TreeNode temp = root;
+        LinkedList<TreeNode> s = new LinkedList<>();
+
+        while(!s.isEmpty()||temp!=null){
+            if(temp!=null){
+                s.push(temp);
+                temp = temp.right;
+            }else{
+                temp = s.pop();
+                if(k--==1){
+                    return temp;
+                }
+                temp = temp.left;
+            }
         }
-        if(rightSize+1==k){
-            return root;
-        }else if(k<=rightSize){
-            return findKthLargest(root.right, k);
-        }else{
-            return findKthLargest(root.left, k-rightSize-1);
-        }
+        return temp;
     }
 
     /**
@@ -556,5 +575,24 @@ public class Level3 {
         head.prev = newHead;
         head = newHead;
         return head;
+    }
+
+    /**
+     * return the maxProfits. This is a really confusing question
+     * 
+     * <p> O(n) Time and O(1) Space
+     * 
+     * @param close
+     * @return
+     */
+    public int maxProfits(int[] close){
+        int profits = 0;
+
+        for(int i=0;i<close.length-1;i++){
+            if(close[i+1]>close[i]){
+                profits += close[i+1]-close[i];
+            }
+        }
+        return profits;
     }
 }
