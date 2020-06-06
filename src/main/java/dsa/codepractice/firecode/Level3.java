@@ -595,4 +595,42 @@ public class Level3 {
         }
         return profits;
     }
+
+    /**
+     * count the number of possible paths from the top left to the bottom
+     * right only going down or right. 
+     * 
+     * <p>This is a Dynamic Progaming problem and the jist of it is adding up
+     * all possible moves from an adjacent row either going down or right.
+     * 
+     * <p>O(mxn) Time and Space
+     * 
+     * @param m
+     * @param n
+     * @return
+     */
+    public int countPaths(int m, int n){
+        if(m==1&&n==1) return 1;
+
+        int[][] memo = new int[m][n];
+        for(int i = 0;i<m;i++){
+            memo[i][0]++;
+        }
+
+        for(int i = 0;i<n;i++){
+            memo[0][i]++;
+        }
+        //Fill the memo matrix 1st row and col with 1's because there's
+        //only one way to go from the previous pos on a row or col to the
+        //next position going only down or right
+
+        for(int i = 1;i<m;i++){
+            for(int j=1;j<n;j++){
+                memo[i][j]=memo[i-1][j]+memo[i][j-1];
+            }
+        }
+        //Adds up all the combinations and returns the last cell which is the
+        //answer
+        return memo[m-1][n-1];
+    }
 }
