@@ -524,7 +524,7 @@ public class Level2 {
         int count=0;
 
         ArrayList<Integer> s = new ArrayList<>();
-        q.
+        //q.
         while(!q.isEmpty()){
             curr = q.poll();
 
