@@ -27,7 +27,7 @@ package dsa.app;
 // import java.util.WeakHashMap;
 
 import dsa.codepractice.firecode.Level2;
-import dsa.codepractice.firecode.Level2.TreeNode;
+//import dsa.codepractice.firecode.Level2.TreeNode;
 import dsa.datastructures.linkedList.Node;
 import dsa.datastructures.linkedList.SinglyLinkedList;
 import dsa.interview.Oracle;
@@ -39,7 +39,9 @@ import dsa.interview.Oracle;
 // import java.util.BitSet;
 
 /**
- * Hello world!
+ * Application runner
+ * 
+ * @author Chavoris
  *
  */
 public class App {
@@ -66,7 +68,7 @@ public class App {
         // sLinkedList.printList();
         // sLinkedList.getNodeCount();
         // sLinkedList.printList();
-        
+
         //System.out.println(sLinkedList.findMiddle());
         //Level2 l2 = new Level2();
         //TreeNode t = l2.new TreeNode(1, l2.new TreeNode(2,l2.new TreeNode(4, null, null),l2.new TreeNode(5, null, null)),l2.new TreeNode(3,l2.new TreeNode(6, null, null),l2.new TreeNode(7, null, null)));
