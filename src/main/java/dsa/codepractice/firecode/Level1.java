@@ -3,6 +3,8 @@ package dsa.codepractice.firecode;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import dsa.datastructures.linkedList.Node;
+
 public class Level1 {
 
     /**
@@ -156,4 +158,45 @@ public class Level1 {
         return dups.toString();
     }
     
+    /**
+     * find the middle node of a Singly Linked List
+     * 
+     * <p> O(n) Time and O(1) Space
+     * 
+     * @param head
+     * @return
+     */
+    public Node findMiddleOfLinkedList(Node head){
+        if(head==null) return null;
+
+        Node slow = head;
+        Node fast = head;
+
+        while(fast.next!=null&&fast.next.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    /**
+     * Find the missing number from an array of digits numbered 1-10.
+     *
+     * <p> O(n) Time O(1) Space
+     *
+     * @param arr
+     * @return
+     */
+    public int findMissingNumber(int[] arr){
+        int total=0;
+        int arrTotal=0;
+        for(int i=1;i<11;i++){
+            total+=i;
+        }
+        for(int i=0;i<arr.length;i++){
+            arrTotal+=arr[i];
+        }
+
+        return total-arrTotal;
+    }
 }

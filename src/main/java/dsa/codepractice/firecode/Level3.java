@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.assertj.core.util.Arrays;
+
 import dsa.datastructures.linkedList.Node;
 import dsa.datastructures.trees.TreeNode;
 
@@ -632,5 +634,239 @@ public class Level3 {
         //Adds up all the combinations and returns the last cell which is the
         //answer
         return memo[m-1][n-1];
+    }
+
+    /**
+     * find the number that repeats the most in an integer array.
+     * The input is from 0 to arr.length-1. The solution must be
+     * O(n) Time and O(1) space;
+     * 
+     * @param a
+     * @return
+     */
+    public int getMaxRepetition(int[] a){
+        if(a==null) return -1;
+        int max=a.length;
+        System.out.println(max);
+        int index=0;
+
+        for(int i=0;i<max;i++){
+            a[a[i]%max]+=max;
+        }
+
+        for(int i=0;i<a.length;i++){
+            if(a[i]>max){
+                max = a[i];
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public boolean isListPalindrome(Node head){
+        if(head==null||head.next==null) return true;
+        
+        //O(n) Space solution
+        Node temp = head;
+        ArrayList<Integer> nums = new ArrayList<>();
+        while(temp!=null){
+            nums.add(temp.data);
+        }
+
+        for(int i=0;i<nums.size();i++){
+            if(nums.get(i)!=nums.get(nums.size()-1-i)){
+                return false;
+            }
+        }
+        return true;
+
+        //O(1) Space solution;
+        //Node reverse = head;
+
+    }
+
+    /**
+     * print each level of a BST
+     * 
+     * <p> O(n) Time and Space
+     * 
+     * @param root
+     * @return
+     */
+    public static ArrayList<ArrayList<Integer>> printLevelByLevel(TreeNode root) {
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        ArrayList<Integer> level = new ArrayList<>();
+
+        if(root==null) return list;
+        
+        LinkedList<TreeNode> currLevel = new LinkedList<>();
+        LinkedList<TreeNode> newLevel = new LinkedList<>();
+        currLevel.add(root);
+        while(!currLevel.isEmpty()){
+            TreeNode curr = currLevel.remove();
+            if(curr!=null){
+                level.add(curr.data);
+                newLevel.add(curr.left);
+                newLevel.add(curr.right);
+            }
+            if(currLevel.isEmpty()){
+                if(!level.isEmpty()){
+                    list.add(level);
+                }
+                level = new ArrayList<Integer>();
+                while(!newLevel.isEmpty()){
+                    currLevel.add(newLevel.remove()); 
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * Unfinished Iterative solution
+     * 
+     * <p> O()
+     * 
+     * @param root
+     * @param k
+     * @return
+     */
+    public TreeNode findKthSmallest(TreeNode root, int k) {
+        if(root==null||k<1) return root;
+        
+        TreeNode temp= root;
+        LinkedList<TreeNode> stack = new LinkedList<>();
+        LinkedList<Integer> popped = new LinkedList<>();
+        int index=1;
+        while(temp!=null){
+            if(temp.left!=null&&!popped.contains(temp.left.data)){
+                stack.push(temp);
+                temp = temp.left;
+            }else if(index==k){
+                return temp;
+            }else if(temp.right!=null&&!popped.contains(temp.right.data)){
+                //stack.push(temp);
+                temp = temp.right;
+            }else{
+                popped.push(temp.data);
+                temp = stack.pop();
+                index++;
+            }
+        }
+        return null;
+
+        // public TreeNode findKthSmallest(TreeNode root, int k) {                   
+            // if(root == null) return null;
+            // int leftSize=0;
+            // if(root.left != null) {
+                // leftSize = size(root.left);
+            // }
+            // if(leftSize+1 == k) { 
+                // return root;
+            // } else if(k <= leftSize) {
+                // return findKthSmallest(root.left, k);
+            // }
+            // else {
+                // return findKthSmallest(root.right, k-leftSize-1);//find k-leftSize-1 smallest in right subtree.
+            // }
+        // }
+    }
+
+    /**
+     * find the number of full nodes in a Binary Tree. A full node is categorized
+     * by having two children.
+     * 
+     * <p> O(n) Space Complexity and Time
+     * 
+     * @param root
+     * @return
+     */
+    public int findNumberOfFullNodes(TreeNode root){
+        if(root==null) return 0;
+
+        TreeNode temp = root;
+        LinkedList<TreeNode> s = new LinkedList<>();
+        int count=0;
+        s.push(temp);
+
+        while(!s.isEmpty()){
+            temp = s.pop();
+            if(temp.left!=null&&temp.right!=null){
+                count++;
+            }if(temp.left!=null){
+                s.push(temp.left);
+            }if(temp.right!=null){
+                s.push(temp.right);
+            }
+        }
+        return count;
+    }
+
+    /**
+     * generate a number of valid pairs of parentheses based on the integer value
+     * 
+     * @param pairs
+     * @return
+     */
+    public static ArrayList<String> combParenthesis(int pairs){
+        ArrayList<String> paired = new ArrayList<>();
+        if(pairs>0){
+            combParenthesis(pairs, pairs, "", paired);
+        }
+        return paired;
+    }
+
+    /**
+     * recurive helper method for generating parentheses.
+     * 
+     * @param leftPair
+     * @param rightPair
+     * @param temp
+     * @param paired
+     */
+    public static void combParenthesis (int leftPair, int rightPair, String temp, ArrayList<String> paired){
+        if(leftPair==0&&rightPair==0){
+            paired.add(temp);
+        }else{
+            if(leftPair>0){
+                combParenthesis(leftPair-1, rightPair, temp+"(", paired);
+            }
+            if(rightPair>leftPair){
+                combParenthesis(leftPair, rightPair-1, temp+")", paired);
+            }
+        }
+        return;
+    }
+
+    public static String serializeTree(TreeNode t){
+        StringBuilder sb = new StringBuilder();
+        serializeTreeHelper(sb, t);
+        if(sb.length() > 0) sb.deleteCharAt(0);
+        return sb.toString();
+    }
+
+    public static StringBuilder serializeTreeHelper(StringBuilder sb, TreeNode t){
+        if(t==null) sb.append(",null");
+        else{
+            sb.append(","+t.data);
+            serializeTreeHelper(sb, t.left);
+            serializeTreeHelper(sb, t.right);
+        }
+        return sb;
+    }
+
+    public static TreeNode restoreTree(String t){
+        String[] nodeSplit = t.split(",");
+        LinkedList<String> nodesList = new LinkedList<>(Arrays.asList(nodeSplit));
+        return restoreTreeHelper(nodesList);
+    }
+
+    public static TreeNode restoreTreeHelper(LinkedList<String> n){
+         String nodeData = n.remove();
+         if(nodeData.equals(null)) return null;
+         TreeNode t = new TreeNode(Integer.valueOf(nodeData));
+         t.left= restoreTreeHelper(n);
+         t.right=restoreTreeHelper(n);
+         return t;
     }
 }

@@ -20,6 +20,7 @@
 
 # Annotation Processing
 .apt_generated/
+.apt_generated_tests/
 
 ### Eclipse Patch ###
 # Eclipse Core
